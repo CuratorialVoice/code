@@ -1,0 +1,31 @@
+# SQARQL query for use at https://public.researchspace.org/sparql. Code below looks for records associated with the 'Catalogue of Political and Personal Satires Preserved in the Department of Prints and Drawings in the British Museum', and returns results organised under 'id', 'titles', 'names', 'descs' and 'dates' headings. Where multiple data appears for a single record, these are seperated by |. If query falls over due to volume of records, add `LIMIT 10` or similar at bottom of the query
+
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
+PREFIX bmo: <http://www.researchspace.org/ontology/>
+PREFIX thesIdentifier: <http://collection.britishmuseum.org/id/>
+SELECT DISTINCT ?id (GROUP_CONCAT(?title; SEPARATOR = "|") as ?titles) (GROUP_CONCAT(?name; SEPARATOR = "|") as ?names) (GROUP_CONCAT(?desc; SEPARATOR = "|") as ?descs) (GROUP_CONCAT(?date; SEPARATOR = "|") as ?dates)
+    {
+        ?object crm:P70i_is_documented_in <http://collection.britishmuseum.org/id/bibliography/294> .
+         OPTIONAL {
+            ?object crm:P48_has_preferred_identifier ?id }.
+           OPTIONAL {
+               ?object bmo:PX_physical_description ?desc } .
+           OPTIONAL {         
+            ?object crm:P108i_was_produced_by ?prodevent.
+            ?prodevent crm:P9_consists_of ?prodpart .
+            ?prodpart crm:P4_has_time-span ?timespan.
+            ?timespan rdfs:label ?date} .
+           OPTIONAL {
+            ?object crm:P108i_was_produced_by ?prodevent2.
+            ?prodevent2 crm:P9_consists_of ?prodpart2 .
+            ?prodpart2 crm:P14_carried_out_by ?creator.
+            ?creator skos:prefLabel ?name .
+            ?creator skos:inScheme thesIdentifier:person-institution}
+         OPTIONAL {
+            ?object rdfs:label ?title }
+    }
+GROUP BY ?id
