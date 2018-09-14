@@ -1,5 +1,7 @@
 # SQARQL query for use at https://public.researchspace.org/sparql. Code below looks for records associated with the 'Catalogue of Political and Personal Satires Preserved in the Department of Prints and Drawings in the British Museum', and returns results organised under 'id', 'titles', 'names', 'descs' and 'dates' headings. Where multiple data appears for a single record, these are seperated by |. If query falls over due to volume of records, add `LIMIT 10` or similar at bottom of the query. Note that summary page for an object (eg https://public.researchspace.org/resource/?uri=http%3A%2F%2Fcollection.britishmuseum.org%2Fid%2Fobject%2FPPA56921) is useful for figuring out what elements below refer to.
 
+# SQARQL query for use at https://public.researchspace.org/sparql. Code below looks for records associated with the 'Catalogue of Political and Personal Satires Preserved in the Department of Prints and Drawings in the British Museum', and returns results organised under 'id', 'titles', 'names', 'descs' and 'dates' headings. Where multiple data appears for a single record, these are seperated by |. If query falls over due to volume of records, add `LIMIT 10` or similar at bottom of the query. Note that summary page for an object (eg https://public.researchspace.org/resource/?uri=http%3A%2F%2Fcollection.britishmuseum.org%2Fid%2Fobject%2FPPA56921) is useful for figuring out what elements below refer to.
+
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -7,7 +9,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
 PREFIX bmo: <http://www.researchspace.org/ontology/>
 PREFIX thesIdentifier: <http://collection.britishmuseum.org/id/>
-SELECT DISTINCT ?id (GROUP_CONCAT(?title; SEPARATOR = "|") as ?titles) (GROUP_CONCAT(?name; SEPARATOR = "|") as ?names) (GROUP_CONCAT(?desc; SEPARATOR = "|") as ?descs) (GROUP_CONCAT(?date; SEPARATOR = "|") as ?dates)
+SELECT DISTINCT ?id (GROUP_CONCAT(?title; SEPARATOR = "|") as ?titles) (GROUP_CONCAT(?label; SEPARATOR = "|") as ?label) (GROUP_CONCAT(?name; SEPARATOR = "|") as ?names) (GROUP_CONCAT(?desc; SEPARATOR = "|") as ?descs) (GROUP_CONCAT(?date; SEPARATOR = "|") as ?dates) (GROUP_CONCAT(?misc; SEPARATOR = "|") as ?misc)
     {
         ?object crm:P70i_is_documented_in <http://collection.britishmuseum.org/id/bibliography/294> .
          OPTIONAL {
@@ -27,5 +29,8 @@ SELECT DISTINCT ?id (GROUP_CONCAT(?title; SEPARATOR = "|") as ?titles) (GROUP_CO
             ?creator skos:inScheme thesIdentifier:person-institution}
          OPTIONAL {
             ?object rdfs:label ?title }
+  		OPTIONAL {
+               ?object bmo:displayLabel ?label } .
+  
     }
 GROUP BY ?id
