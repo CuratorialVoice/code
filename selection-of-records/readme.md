@@ -1,6 +1,6 @@
 # Selection of BMSat Records
 
-This document records the selection of relevant records from `[2018-10-01_BMsparql.json](https://github.com/CuratorialVoice/data/blob/master/BMsparql/2018-10-01_BMsparql.json)`. The final output of the process - `selectedRecords.tsv` - is the dataset used in our research into Mary Dorothy George’s curatorial voice.
+This document records the selection of relevant records from `[2018-10-01_BMsparql.json](https://github.com/CuratorialVoice/data/blob/master/BMsparql/2018-10-01_BMsparql.json)`. The final output of the process - `selectedRecords.tsv` - is the dataset used in our research into Mary Dorothy George’s curatorial voice. Note that the document is not intended as a comphrehensive guide to the process of selecting relevant records and complements comments in the code described below.
 
 `[2018-10-01_BMsparql.json](https://github.com/CuratorialVoice/data/blob/master/BMsparql/2018-10-01_BMsparql.json)` was extracted from the [ResearchSpace SPARQL endpoint](https://public.researchspace.org/sparql) using the query `[2018-10-01_BMsparl.txt](https://github.com/CuratorialVoice/code/blob/master/BMsparql/2018-10-01_BMsparl.txt)`. See `[2018-10-01_BMsparl.txt](https://github.com/CuratorialVoice/code/blob/master/BMsparql/2018-10-01_BMsparl.txt)` for documentation of the extraction process.
 
