@@ -45,7 +45,7 @@ This step removes records from `2018-10-01_BMsparql.json.tsv` that are not based
 Records for prints published outside the period 1771-1832, the dates covered by volumes 5 to 11 of the *[Catalogue of Political and Personal Satires Preserved in the Department of Prints and Drawings in the British Museum](https://en.wikipedia.org/wiki/Catalogue_of_Political_and_Personal_Satires_Preserved_in_the_Department_of_Prints_and_Drawings_in_the_British_Museum)*. This includes records for which there is no publication date. Note that where there are multiple values in the ‘date’ field (seperated by `█`) we use the first/left-most value in the field.
 Records for prints acquired by the British Museum after 1929. George worked on the *Catalogue* between 1930 and 1954. Whilst some prints that were in scope of the volumes of her *Catalogue* were acquired in this period, this step ensures the removal of false positives. Note that this information is extracted from the ‘titles’ field - e.g. `Le déserteur, paper (1868,0808.8230)` - where the first four digits after the left-bracket are the year of acquisition.
 
-Run `perl filterByDates.pl g` which makes `dateFiltered_2018-10-01_BMsparql.json.tsv`, in which each record is placed under one of six headings, as follows, with number of records under each heading:
+Run `perl filterByDates.pl` which makes `dateFiltered_2018-10-01_BMsparql.json.tsv`, in which each record is placed under one of six headings, as follows, with number of records under each heading:
 
 - No publication date: 27 
 - No acquisition date: 1741
